@@ -1,6 +1,6 @@
 # Project gin-ecommerce
 
-One Paragraph of project description goes here
+This is a project my friend and I are working on. We want to build a backend system for an e-commerce website. I've already managed to create the CRUD functionality, and now I'm working on the authorization.
 
 ## Getting Started
 
