@@ -8,8 +8,7 @@ import (
 	"os/signal"
 	"syscall"
 	"time"
-
-	"github.com/fawwazalifiofarsa/gin-ecommerce/internal/database"
+	"github.com/fawwazalifiofarsa/gin-ecommerce/internal/models"
 	"github.com/fawwazalifiofarsa/gin-ecommerce/internal/server"
 )
 
@@ -40,16 +39,20 @@ func gracefulShutdown(apiServer *http.Server, done chan bool) {
 
 func main() {
 
-	database.Init()
-	server := server.NewServer()
+
+	models.Init()
+	apiServer := server.NewServer()
 
 	// Create a done channel to signal when the shutdown is complete
 	done := make(chan bool, 1)
 
-	// Run graceful shutdown in a separate goroutine
-	go gracefulShutdown(server, done)
 
-	err := server.ListenAndServe()
+
+
+	// Run graceful shutdown in a separate goroutine
+	go gracefulShutdown(apiServer, done)
+
+	err := apiServer.ListenAndServe()
 	if err != nil && err != http.ErrServerClosed {
 		panic(fmt.Sprintf("http server error: %s", err))
 	}
